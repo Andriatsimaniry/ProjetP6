@@ -9,6 +9,7 @@ const sauceSchema = mongoose.Schema({
   heat: 0,
   likes:0,
   dislikes: 0,
+  mainPepper:"",
   usersLiked: [],
   usersDisLiked: [],
 });
