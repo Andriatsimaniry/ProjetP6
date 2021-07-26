@@ -1,8 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Sauce = require("./models/sauce");
-
+const sauceRoutes = require("./routes/routesauce");
 const app = express();
+const userRoutes = require("./routes/user");
+
+app.use("/api/sauce", sauceRoutes);
+app.use("/api/auth", userRoutes);
 
 mongoose
   .connect(
@@ -10,6 +13,8 @@ mongoose
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -22,62 +27,18 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    "Access-Control-Allow-Credentials,false"
   );
-  next();
-});
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-//GET: /api/sauce
-app.get("/api/sauce", function (req, res, next) {
-  Sauce.find(function (err, sauce) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(sauce);
-    next();
-  });
-});
-// POST:/api/sauce
-app.post("/api/sauce", function (req, res, next) {
-  delete req.body._id;
-  Sauce.create(req.body, function (err, sauce) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(sauce);
-    next();
-  });
+  // const XMLHttpRequest : new
+  // const xhr = new XMLHttpRequest();
+  // xhr.open("GET", "http://localhost:4200/", true);
+  // xhr.withCredentials = true;
+  // xhr.send(null);
+  // next();
 });
 
-// GET:/api/sauce/:id
-app.get("/api/sauce/:id", function (req, res, next) {
-  Sauce.findById(req.params.id, function (err, sauce) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(sauce);
-    next();
-  });
-});
-// PUT: /api/sauce/:id
-app.put("/api/sauce/:id", function (req, res, next) {
-  Sauce.findByIdAndUpdate(req.params.id, req.body, function (err, sauce) {
-    if (err) {
-      res.send(err);
-    }
-    res.json('valeurs mis  a jour');
-    next();
-  });
-});
-// DELETE: /api/sauce/:id
-app.delete("/api/sauce/:id", function (req, res) {
-  Sauce.findByIdAndRemove(req.params.id, function (err, sauce) {
-    if (err) {
-      res.send(err);
-    }
-    res.json(sauce);
-  });
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 module.exports = app;
