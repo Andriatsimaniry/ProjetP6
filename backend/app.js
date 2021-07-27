@@ -1,11 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const sauceRoutes = require("./routes/routesauce");
-const app = express();
+const sauceRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
+const app = express();
 
 app.use("/api/sauce", sauceRoutes);
 app.use("/api/auth", userRoutes);
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 mongoose
   .connect(
@@ -30,15 +34,8 @@ app.use((req, res, next) => {
     "GET, POST, PUT, DELETE, PATCH, OPTIONS",
     "Access-Control-Allow-Credentials,false"
   );
-  // const XMLHttpRequest : new
-  // const xhr = new XMLHttpRequest();
-  // xhr.open("GET", "http://localhost:4200/", true);
-  // xhr.withCredentials = true;
-  // xhr.send(null);
-  // next();
+  
 });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 module.exports = app;
