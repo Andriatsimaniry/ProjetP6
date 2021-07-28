@@ -15,16 +15,14 @@ const sauceSchema = mongoose.Schema({
 });
 module.exports = mongoose.model("Sauce", sauceSchema);
 
-
 // userId: "",
-//   name: "",
-//   manufacturer: "",
-//   description: "",
-//   imageUrl: "",
-//   heat: 0,
-//   likes:0,
-//   dislikes: 0,
-//   mainPepper:"",
-//   usersLiked: [],
-//   usersDisLiked: [],
-
+// name: "",
+// manufacturer: "",
+// description: "",
+// imageUrl: "",
+// heat: 0,
+// likes:0,
+// dislikes: 0,
+// mainPepper:"",
+// usersLiked: [],
+// usersDisLiked: [],

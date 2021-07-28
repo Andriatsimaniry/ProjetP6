@@ -1,28 +1,29 @@
+//app.js
 const express = require("express");
 const mongoose = require("mongoose");
+
 const sauceRoutes = require("./routes/sauce");
 const userRoutes = require("./routes/user");
-const app = express();
 
-app.use("/api/sauce", sauceRoutes);
-app.use("/api/auth", userRoutes);
+const path = require("path");
 
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+// Connection à la base de donnée
 mongoose
   .connect(
-    "mongodb+srv://Niry:ando1994@cluster0.vzrwc.mongodb.net/test?retryWrites=true&w=majority",
+    // Connection MangoDb
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false,
+      // useFindAndModify: true,
     }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
+
+const app = express();
+
+//Résolution des Cors
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -31,11 +32,19 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-    "Access-Control-Allow-Credentials,false"
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
-  
+  // res.setHeader("Access-Control-Allow-Credentials,true");
+  next();
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/images", express.static(path.join(__dirname, "images")));
+
+//Appel de l'API
+app.use("/api/sauce", sauceRoutes);
+app.use("/api/auth", userRoutes);
 
 module.exports = app;
