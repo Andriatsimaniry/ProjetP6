@@ -6,10 +6,12 @@ const fs = require("fs");
 
 // // POST:enregistrer des objets
 exports.createSauce = (req, res, next) => {
-  const sauceObjet = res.json(req.body.Sauce);
+  const sauceObjet = JSON.parse(req.body.sauce);
   delete sauceObjet._id;
   const sauce = new Sauce({
     ...sauceObjet,
+    likes: 0,
+    dislikes: 0,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${
       req.file.filename
     }`,
@@ -32,7 +34,7 @@ exports.getOneSauce = (req, res, next) => {
 exports.modifySauce = (req, res, next) => {
   const sauceObjet = req.file
     ? {
-        ...res.json(req.body.Sauce),
+        ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`,
