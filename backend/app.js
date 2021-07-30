@@ -38,13 +38,15 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/images", express.static(path.join(__dirname, "images")));
+
 
 //Appel de l'API
-app.use("/api/sauce", sauceRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/api/sauces", sauceRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;

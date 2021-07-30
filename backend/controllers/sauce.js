@@ -1,4 +1,5 @@
 //Controlleurs /sauce.js
+const express = require("express");
 const Sauce = require("../models/sauce");
 const fs = require("fs");
 
@@ -17,7 +18,7 @@ exports.createSauce = (req, res, next) => {
     .save()
     .then(() => res.status(201).json({ message: "Objet enregistré !" }))
     .catch((error) => res.status(400).json({ error }));
-  // next();
+    next();
 };
 
 // GET:/:id récupérer un seul objet
