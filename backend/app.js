@@ -12,7 +12,6 @@ const path = require("path");
 mongoose
   .connect(
     // Connection MangoDb
-    "mongodb+srv://Niry:Lova1999@cluster0.ke0q7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 
     {
       useNewUrlParser: true,
