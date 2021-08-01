@@ -1,8 +1,9 @@
 //app.js
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
-
-const sauceRoutes = require("./routes/sauce");
+const helmet = require('helmet');
+const sauceRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
 
 const path = require("path");
@@ -11,7 +12,7 @@ const path = require("path");
 mongoose
   .connect(
     // Connection MangoDb
-   
+    "mongodb+srv://Niry:Lova1999@cluster0.ke0q7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 
     {
       useNewUrlParser: true,
@@ -24,6 +25,7 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
+app.use(helmet());
 
 //Résolution des Cors
 app.use((req, res, next) => {
@@ -44,11 +46,10 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 //Appel de l'API
-app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/sauces", sauceRoutes);
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", userRoutes); // Active le middleware de logging
+app.use("/images", express.static(path.join(__dirname, "images"))); //indique que le dossier /images contient des images statiques
+app.use("/api/sauces", sauceRoutes); // Répond
+
 
 module.exports = app;
