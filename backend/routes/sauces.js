@@ -10,10 +10,10 @@ const fs = require("fs");
 const sauceCtrl = require("../controllers/sauces");
 
 router.get("/", auth, sauceCtrl.getAllSauces);
-router.post("/", auth, multer, sauceCtrl.createSauces);
-router.get("/:id", auth, sauceCtrl.getOneSauces);
-router.put("/:id", auth, multer, sauceCtrl.modifySauces);
-router.delete("/:id", auth, sauceCtrl.deleteSauces);
-router.post('/:id/likes', auth, sauceCtrl.likes);//Likes et dislikes
+router.post("/", auth, multer, sauceCtrl.createSauce);
+router.get("/:id", auth, sauceCtrl.getOneSauce);
+router.put("/:id", auth, multer, sauceCtrl.modifySauce);
+router.delete("/:id", auth, sauceCtrl.deleteSauce);
+router.post('/:id/like', auth, sauceCtrl.like);// j'aime , j'aime pas
 
 module.exports = router;
