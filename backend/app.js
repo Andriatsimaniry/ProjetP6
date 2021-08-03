@@ -1,8 +1,9 @@
-//Appel des modules 
+//Appel des modules
 const express = require("express");
 const mongoose = require("mongoose");
 const sauceRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
+const helmet = require("helmet");
 
 const path = require("path");
 
@@ -10,7 +11,7 @@ const path = require("path");
 mongoose
   .connect(
     // Connection MangoDb
-   
+    "mongodb+srv://Omega:Noro1965@cluster0.ke0q7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -36,15 +37,24 @@ app.use((req, res, next) => {
   next();
 });
 
+//  Pour proteger l'application contre les attaques
+// content-Security-Policy,x-powered-by,Strict-Transport-Security,
+// X-Download-Option,Cache-Control,Content-Type-Options,X-frame-Option,X-Xss-Protection
+app.use(helmet());
+
 // utiliser reponse json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
 //Appel de l'API
+
 // Active le middleware de logging
 app.use("/api/auth", userRoutes);
+
 //indique que le dossier /images contient des images statiques
 app.use("/images", express.static(path.join(__dirname, "images")));
+
 // Répond toutes les sauces
 app.use("/api/sauces", sauceRoutes);
 

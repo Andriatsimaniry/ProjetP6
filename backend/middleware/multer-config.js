@@ -1,4 +1,4 @@
-// Téléchargement des fichiers
+// Téléchargement des images
 
 const multer = require('multer');
 
