@@ -20,6 +20,11 @@ router.post(
   userCtrl.signup
 );
 //Connecter l'utilisateur
-router.post("/login", userCtrl.login);
+router.post(
+  "/login",
+  [body("email").isEmail(), body("password").isLength({ min: 5 })],
+  connect,
+  userCtrl.login
+);
 
 module.exports = router;
