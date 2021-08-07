@@ -1,5 +1,5 @@
 //Appel des modules
-const express = require("express");
+const express = require("express"); //Importer express 
 const mongoose = require("mongoose");
 const sauceRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
@@ -21,7 +21,7 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-const app = express();
+const app = express(); //Pour créer une application express
 
 //Résolution des Cors
 app.use((req, res, next) => {
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use(helmet());
 
 // utiliser reponse json
-app.use(express.json());
+app.use(express.json());  //Transformer le corps de la requette en objet javascript utilisable
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -58,4 +58,4 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // Répond toutes les sauces
 app.use("/api/sauces", sauceRoutes);
 
-module.exports = app;
+module.exports = app; //Pour pouvoir acceder depuis des autres fichiers notament serveur Node
