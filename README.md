@@ -1,4 +1,4 @@
-# ProjetP6 Openclassrooms PIIQUANTE
+# ProjetP6 Openclassrooms SO Pekocko (version avant 29/072021)
 Création de Sauces épicées dont les recettes sont gardées secrètes,
 c'est une application web dans laquelle les utilisateurs peuvent ajouter leurs sauces préférérées et
 liker ou disliker les sauces ajoutées par les autres.
