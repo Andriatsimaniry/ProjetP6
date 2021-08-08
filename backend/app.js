@@ -4,14 +4,17 @@ const mongoose = require("mongoose");
 const sauceRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
 const helmet = require("helmet");
-
+const session = require('cookie-session');
 const path = require("path");
+const rateLimit = require("express-rate-limit");
+
+// utilisation du module 'dotenv' pour masquer les informations de connexion à la base de données à l'aide de variables d'environnement
+require('dotenv').config();
+
 
 // Connection à la base de donnée
 mongoose
-  .connect(
-    // Connection MangoDb
-    "mongodb+srv://Omega:Noro1965@cluster0.ke0q7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  .connect(process.env.MD_UTIL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -42,6 +45,10 @@ app.use((req, res, next) => {
 // X-Download-Option,Cache-Control,Content-Type-Options,X-frame-Option,X-Xss-Protection
 app.use(helmet());
 
+
+
+
+
 // utiliser reponse json
 app.use(express.json());  //Transformer le corps de la requette en objet javascript utilisable
 app.use(express.urlencoded({ extended: true }));
@@ -57,5 +64,9 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Répond toutes les sauces
 app.use("/api/sauces", sauceRoutes);
+
+
+
+
 
 module.exports = app; //Pour pouvoir acceder depuis des autres fichiers notament serveur Node
