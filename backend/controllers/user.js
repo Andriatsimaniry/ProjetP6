@@ -10,7 +10,7 @@ const emailMask2Options = {
   unmaskedEndCharactersAfterAt: 2,
   maskAtTheRate: false
 };
-const email = "my.test.email@testEmail.com";
+const email = "email@testEmail.*";
 
 const maskedEmail = maskData.maskEmail2(email, emailMask2Options);
 
