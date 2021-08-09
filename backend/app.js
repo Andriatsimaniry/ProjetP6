@@ -58,13 +58,13 @@ app.use(
 );
 
 // Pour éviter les attaques de force brute
-const limiter = rateLimit({
+const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limite chaque IP à 100 requêtes
 });
 
 //  S'applique à toutes les demandes
-app.use(limiter);
+app.use("/api/", apiLimiter);
 
 // utiliser reponse json
 app.use(express.json()); //Transformer le corps de la requette en objet javascript utilisable
