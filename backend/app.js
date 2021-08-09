@@ -51,7 +51,7 @@ app.use(
     cookie: {
       secure: true,
       httpOnly: true,
-      domain: "http://localhost:3000",
+      domain: process.env.HOST,
       expires: expiryDate,
     },
   })

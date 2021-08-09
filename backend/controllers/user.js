@@ -6,7 +6,7 @@ const maskData = require("maskdata");
 // Pour masquer l'email
 const emailMask2Options = {
   maskWith: "*",
-  unmaskedStartCharactersBeforeAt: 5,
+  unmaskedStartCharactersBeforeAt: 6,
   unmaskedEndCharactersAfterAt: 2,
   maskAtTheRate: false,
 };
